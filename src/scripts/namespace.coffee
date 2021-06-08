@@ -21,15 +21,21 @@ ContentTools =
             'align-center',
             'align-right'
         ], [
-            'heading',
             'subheading',
-            'paragraph',
+            'heading3',
+            'heading4',
             'unordered-list',
             'ordered-list',
             'table',
             'indent',
             'unindent',
-            'line-break'
+            'line-break',
+            'dropcaps',
+            'productbox',
+            'quote',
+            'ingredients',
+            'steps'
+            'resources'
         ], [
             'image',
             'video',

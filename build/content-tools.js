@@ -5560,7 +5560,7 @@
 }).call(this);
 
 (function() {
-  var AttributeUI, ContentTools, CropMarksUI, StyleUI, exports, _EditorApp,
+  var AttributeUI, ContentTools, CropMarksUI, DropCaps, Ingredients, ProductBox, Quote, Resources, Steps, StyleUI, exports, _EditorApp,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -5569,7 +5569,7 @@
   ContentTools = {
     Tools: {},
     CANCEL_MESSAGE: 'Your changes have not been saved, do you really want to lose them?'.trim(),
-    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'align-left', 'align-center', 'align-right'], ['heading', 'subheading', 'paragraph', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
+    DEFAULT_TOOLS: [['bold', 'italic', 'link', 'align-left', 'align-center', 'align-right'], ['subheading', 'heading3', 'heading4', 'unordered-list', 'ordered-list', 'table', 'indent', 'unindent', 'line-break', 'dropcaps', 'productbox', 'quote', 'ingredients', 'steps', 'resources'], ['image', 'video', 'preformatted'], ['undo', 'redo', 'remove']],
     DEFAULT_VIDEO_HEIGHT: 300,
     DEFAULT_VIDEO_WIDTH: 400,
     HIGHLIGHT_HOLD_DURATION: 2000,
@@ -9846,6 +9846,44 @@
 
   })(ContentTools.Tools.Heading);
 
+  ContentTools.Tools.Heading3 = (function(_super) {
+    __extends(Heading3, _super);
+
+    function Heading3() {
+      return Heading3.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(Heading3, 'heading3');
+
+    Heading3.label = 'Heading3';
+
+    Heading3.icon = 'heading3';
+
+    Heading3.tagName = 'h3';
+
+    return Heading3;
+
+  })(ContentTools.Tools.Heading);
+
+  ContentTools.Tools.Heading4 = (function(_super) {
+    __extends(Heading4, _super);
+
+    function Heading4() {
+      return Heading4.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(Heading4, 'heading4');
+
+    Heading4.label = 'Heading4';
+
+    Heading4.icon = 'heading4';
+
+    Heading4.tagName = 'h4';
+
+    return Heading4;
+
+  })(ContentTools.Tools.Heading);
+
   ContentTools.Tools.Paragraph = (function(_super) {
     __extends(Paragraph, _super);
 
@@ -10746,5 +10784,117 @@
     return Remove;
 
   })(ContentTools.Tool);
+
+  DropCaps = (function(_super) {
+    __extends(DropCaps, _super);
+
+    function DropCaps() {
+      return DropCaps.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(DropCaps, 'dropcaps');
+
+    DropCaps.label = 'DropCaps';
+
+    DropCaps.icon = 'dropcaps';
+
+    DropCaps.tagName = 'dropcaps';
+
+    return DropCaps;
+
+  })(ContentTools.Tools.Bold);
+
+  ProductBox = (function(_super) {
+    __extends(ProductBox, _super);
+
+    function ProductBox() {
+      return ProductBox.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(ProductBox, 'productbox');
+
+    ProductBox.label = 'Product Box';
+
+    ProductBox.icon = 'productbox';
+
+    ProductBox.tagName = 'productbox';
+
+    return ProductBox;
+
+  })(ContentTools.Tools.Heading);
+
+  Quote = (function(_super) {
+    __extends(Quote, _super);
+
+    function Quote() {
+      return Quote.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(Quote, 'quote');
+
+    Quote.label = 'Quote';
+
+    Quote.icon = 'quote';
+
+    Quote.tagName = 'quote';
+
+    return Quote;
+
+  })(ContentTools.Tools.Bold);
+
+  Ingredients = (function(_super) {
+    __extends(Ingredients, _super);
+
+    function Ingredients() {
+      return Ingredients.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(Ingredients, 'ingredients');
+
+    Ingredients.label = 'Ingredients';
+
+    Ingredients.icon = 'ingredients';
+
+    return Ingredients;
+
+  })(ContentTools.Tools.Heading);
+
+  Steps = (function(_super) {
+    __extends(Steps, _super);
+
+    function Steps() {
+      return Steps.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(Steps, 'steps');
+
+    Steps.label = 'Steps';
+
+    Steps.icon = 'steps';
+
+    Steps.tagName = 'steps';
+
+    return Steps;
+
+  })(ContentTools.Tools.Heading);
+
+  Resources = (function(_super) {
+    __extends(Resources, _super);
+
+    function Resources() {
+      return Resources.__super__.constructor.apply(this, arguments);
+    }
+
+    ContentTools.ToolShelf.stow(Resources, 'resources');
+
+    Resources.label = 'Resources';
+
+    Resources.icon = 'resources';
+
+    Resources.tagName = 'resources';
+
+    return Resources;
+
+  })(ContentTools.Tools.Heading);
 
 }).call(this);

@@ -163,7 +163,6 @@ class ContentTools.Tools.Italic extends ContentTools.Tools.Bold
     @icon = 'italic'
     @tagName = 'i'
 
-
 class ContentTools.Tools.Link extends ContentTools.Tools.Bold
 
     # Insert/Remove a link.
@@ -505,6 +504,26 @@ class ContentTools.Tools.Subheading extends ContentTools.Tools.Heading
     @label = 'Subheading'
     @icon = 'subheading'
     @tagName = 'h2'
+
+class ContentTools.Tools.Heading3 extends ContentTools.Tools.Heading
+
+    # Convert the current text block to a subheading (e.g <h3>foo</h3>)
+
+    ContentTools.ToolShelf.stow(@, 'heading3')
+
+    @label = 'Heading3'
+    @icon = 'heading3'
+    @tagName = 'h3'
+
+class ContentTools.Tools.Heading4 extends ContentTools.Tools.Heading
+
+    # Convert the current text block to a subheading (e.g <h4>foo</h4>)
+
+    ContentTools.ToolShelf.stow(@, 'heading4')
+
+    @label = 'Heading4'
+    @icon = 'heading4'
+    @tagName = 'h4'
 
 
 class ContentTools.Tools.Paragraph extends ContentTools.Tools.Heading
@@ -1440,3 +1459,54 @@ class ContentTools.Tools.Remove extends ContentTools.Tool
 
         # Dispatch `applied` event
         @dispatchEditorEvent('tool-applied', toolDetail)
+
+
+        
+class DropCaps extends ContentTools.Tools.Bold
+
+    # Make the current selection of text (non)italic (e.g <dropcaps>foo</dropcaps>).
+
+    ContentTools.ToolShelf.stow(@, 'dropcaps')
+
+    @label = 'DropCaps'
+    @icon = 'dropcaps'
+    @tagName = 'dropcaps'
+
+class ProductBox extends ContentTools.Tools.Heading
+
+    ContentTools.ToolShelf.stow(@, 'productbox')
+
+    @label = 'Product Box'
+    @icon = 'productbox'
+    @tagName = 'productbox'
+
+class Quote extends ContentTools.Tools.Bold
+
+    ContentTools.ToolShelf.stow(@, 'quote')
+
+    @label = 'Quote'
+    @icon = 'quote'
+    @tagName = 'quote'
+
+class Ingredients extends ContentTools.Tools.Heading
+
+    ContentTools.ToolShelf.stow(@, 'ingredients')
+
+    @label = 'Ingredients'
+    @icon = 'ingredients'
+
+class Steps extends ContentTools.Tools.Heading
+
+    ContentTools.ToolShelf.stow(@, 'steps')
+
+    @label = 'Steps'
+    @icon = 'steps'
+    @tagName = 'steps'
+
+class Resources extends ContentTools.Tools.Heading
+
+    ContentTools.ToolShelf.stow(@, 'resources')
+
+    @label = 'Resources'
+    @icon = 'resources'
+    @tagName = 'resources'
