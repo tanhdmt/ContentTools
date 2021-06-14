@@ -1133,85 +1133,6 @@ class ContentTools.Tools.Image extends ContentTools.Tool
                 return false
         return true
 
-    @apply: (element, selection, callback) ->
-
-        # Dispatch `apply` event
-        toolDetail = {
-            'tool': this,
-            'element': element,
-            'selection': selection
-            }
-        if not @dispatchEditorEvent('tool-apply', toolDetail)
-            return
-
-        # If supported allow store the state for restoring once the dialog is
-        # cancelled.
-        if element.storeState
-            element.storeState()
-
-        # Set-up the dialog
-        app = ContentTools.EditorApp.get()
-
-        # Modal
-        modal = new ContentTools.ModalUI()
-
-        # Dialog
-        dialog = new ContentTools.ImageDialog()
-
-        # Support cancelling the dialog
-        dialog.addEventListener 'cancel', () =>
-
-            modal.hide()
-            dialog.hide()
-
-            if element.restoreState
-                element.restoreState()
-
-            callback(false)
-
-        # Support saving the dialog
-        dialog.addEventListener 'save', (ev) =>
-            detail = ev.detail()
-            imageURL = detail.imageURL
-            imageSize = detail.imageSize
-            imageAttrs = detail.imageAttrs
-
-            if not imageAttrs
-                imageAttrs = {}
-
-            imageAttrs.height = imageSize[1]
-            imageAttrs.src = imageURL
-            imageAttrs.width = imageSize[0]
-
-            if element.type() is 'ImageFixture'
-                # Configure the image source against the fixture
-                element.src(imageURL)
-
-            else
-                # Create the new image
-                image = new ContentEdit.Image(imageAttrs)
-
-                # Find insert position
-                [node, index] = @_insertAt(element)
-                node.parent().attach(image, index)
-
-                # Focus the new image
-                image.focus()
-
-            modal.hide()
-            dialog.hide()
-
-            callback(true)
-
-            # Dispatch `applied` event
-            @dispatchEditorEvent('tool-applied', toolDetail)
-
-        # Show the dialog
-        app.attach(modal)
-        app.attach(dialog)
-        modal.show()
-        dialog.show()
-
 
 class ContentTools.Tools.Video extends ContentTools.Tool
 
@@ -1226,84 +1147,6 @@ class ContentTools.Tools.Video extends ContentTools.Tool
         # Return true if the tool can be applied to the current
         # element/selection.
         return not element.isFixed()
-
-    @apply: (element, selection, callback) ->
-
-        # Dispatch `apply` event
-        toolDetail = {
-            'tool': this,
-            'element': element,
-            'selection': selection
-            }
-        if not @dispatchEditorEvent('tool-apply', toolDetail)
-            return
-
-        # If supported allow store the state for restoring once the dialog is
-        # cancelled.
-        if element.storeState
-            element.storeState()
-
-        # Set-up the dialog
-        app = ContentTools.EditorApp.get()
-
-        # Modal
-        modal = new ContentTools.ModalUI()
-
-        # Dialog
-        dialog = new ContentTools.VideoDialog()
-
-        # Support cancelling the dialog
-        dialog.addEventListener 'cancel', () =>
-
-            modal.hide()
-            dialog.hide()
-
-            if element.restoreState
-                element.restoreState()
-
-            callback(false)
-
-        # Support saving the dialog
-        dialog.addEventListener 'save', (ev) =>
-            url = ev.detail().url
-
-            if url
-                # Create the new video
-                video = new ContentEdit.Video(
-                    'iframe', {
-                        'frameborder': 0,
-                        'height': ContentTools.DEFAULT_VIDEO_HEIGHT,
-                        'src': url,
-                        'width': ContentTools.DEFAULT_VIDEO_WIDTH
-                        })
-
-                # Find insert position
-                [node, index] = @_insertAt(element)
-                node.parent().attach(video, index)
-
-                # Focus the new video
-                video.focus()
-
-            else
-                # Nothing to do restore state
-                if element.restoreState
-                    element.restoreState()
-
-            modal.hide()
-            dialog.hide()
-
-            applied = url != ''
-            callback(applied)
-
-            # Dispatch `applied` event
-            if applied
-                @dispatchEditorEvent('tool-applied', toolDetail)
-
-        # Show the dialog
-        app.attach(modal)
-        app.attach(dialog)
-        modal.show()
-        dialog.show()
 
 
 class ContentTools.Tools.Undo extends ContentTools.Tool
@@ -1488,14 +1331,14 @@ class Quote extends ContentTools.Tools.Bold
     @icon = 'quote'
     @tagName = 'quote'
 
-class Ingredients extends ContentTools.Tools.Heading
+class Ingredients extends ContentTools.Tools.UnorderedList
 
     ContentTools.ToolShelf.stow(@, 'ingredients')
 
     @label = 'Ingredients'
     @icon = 'ingredients'
 
-class Steps extends ContentTools.Tools.Heading
+class Steps extends ContentTools.Tools.Bold
 
     ContentTools.ToolShelf.stow(@, 'steps')
 

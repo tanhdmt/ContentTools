@@ -10482,65 +10482,6 @@
       return true;
     };
 
-    Image.apply = function(element, selection, callback) {
-      var app, dialog, modal, toolDetail;
-      toolDetail = {
-        'tool': this,
-        'element': element,
-        'selection': selection
-      };
-      if (!this.dispatchEditorEvent('tool-apply', toolDetail)) {
-        return;
-      }
-      if (element.storeState) {
-        element.storeState();
-      }
-      app = ContentTools.EditorApp.get();
-      modal = new ContentTools.ModalUI();
-      dialog = new ContentTools.ImageDialog();
-      dialog.addEventListener('cancel', (function(_this) {
-        return function() {
-          modal.hide();
-          dialog.hide();
-          if (element.restoreState) {
-            element.restoreState();
-          }
-          return callback(false);
-        };
-      })(this));
-      dialog.addEventListener('save', (function(_this) {
-        return function(ev) {
-          var detail, image, imageAttrs, imageSize, imageURL, index, node, _ref;
-          detail = ev.detail();
-          imageURL = detail.imageURL;
-          imageSize = detail.imageSize;
-          imageAttrs = detail.imageAttrs;
-          if (!imageAttrs) {
-            imageAttrs = {};
-          }
-          imageAttrs.height = imageSize[1];
-          imageAttrs.src = imageURL;
-          imageAttrs.width = imageSize[0];
-          if (element.type() === 'ImageFixture') {
-            element.src(imageURL);
-          } else {
-            image = new ContentEdit.Image(imageAttrs);
-            _ref = _this._insertAt(element), node = _ref[0], index = _ref[1];
-            node.parent().attach(image, index);
-            image.focus();
-          }
-          modal.hide();
-          dialog.hide();
-          callback(true);
-          return _this.dispatchEditorEvent('tool-applied', toolDetail);
-        };
-      })(this));
-      app.attach(modal);
-      app.attach(dialog);
-      modal.show();
-      return dialog.show();
-    };
-
     return Image;
 
   })(ContentTools.Tool);
@@ -10560,66 +10501,6 @@
 
     Video.canApply = function(element, selection) {
       return !element.isFixed();
-    };
-
-    Video.apply = function(element, selection, callback) {
-      var app, dialog, modal, toolDetail;
-      toolDetail = {
-        'tool': this,
-        'element': element,
-        'selection': selection
-      };
-      if (!this.dispatchEditorEvent('tool-apply', toolDetail)) {
-        return;
-      }
-      if (element.storeState) {
-        element.storeState();
-      }
-      app = ContentTools.EditorApp.get();
-      modal = new ContentTools.ModalUI();
-      dialog = new ContentTools.VideoDialog();
-      dialog.addEventListener('cancel', (function(_this) {
-        return function() {
-          modal.hide();
-          dialog.hide();
-          if (element.restoreState) {
-            element.restoreState();
-          }
-          return callback(false);
-        };
-      })(this));
-      dialog.addEventListener('save', (function(_this) {
-        return function(ev) {
-          var applied, index, node, url, video, _ref;
-          url = ev.detail().url;
-          if (url) {
-            video = new ContentEdit.Video('iframe', {
-              'frameborder': 0,
-              'height': ContentTools.DEFAULT_VIDEO_HEIGHT,
-              'src': url,
-              'width': ContentTools.DEFAULT_VIDEO_WIDTH
-            });
-            _ref = _this._insertAt(element), node = _ref[0], index = _ref[1];
-            node.parent().attach(video, index);
-            video.focus();
-          } else {
-            if (element.restoreState) {
-              element.restoreState();
-            }
-          }
-          modal.hide();
-          dialog.hide();
-          applied = url !== '';
-          callback(applied);
-          if (applied) {
-            return _this.dispatchEditorEvent('tool-applied', toolDetail);
-          }
-        };
-      })(this));
-      app.attach(modal);
-      app.attach(dialog);
-      modal.show();
-      return dialog.show();
     };
 
     return Video;
@@ -10857,7 +10738,7 @@
 
     return Ingredients;
 
-  })(ContentTools.Tools.Heading);
+  })(ContentTools.Tools.UnorderedList);
 
   Steps = (function(_super) {
     __extends(Steps, _super);
@@ -10876,7 +10757,7 @@
 
     return Steps;
 
-  })(ContentTools.Tools.Heading);
+  })(ContentTools.Tools.Bold);
 
   Resources = (function(_super) {
     __extends(Resources, _super);
